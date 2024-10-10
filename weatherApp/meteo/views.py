@@ -10,7 +10,8 @@ def temp_here(request):
     """Return the temperature at the current location."""
     endpoint = 'https://api.open-meteo.com/v1/forecast'
     location = geocoder.ip('me').latlng
-    api_request = f'{endpoint}?latitude={location[0]}&longitude={location[1]}&hourly=temperature_2m'
+    api_request = (f'{endpoint}?latitude={location[0]}&longitude={location[1]}&'
+                   f'hourly=temperature_2m&temperature_unit=fahrenheit')
     now = datetime.datetime.now(ZoneInfo('America/Chicago'))
     hour = now.hour
     meteo_data = requests.get(api_request).json()
