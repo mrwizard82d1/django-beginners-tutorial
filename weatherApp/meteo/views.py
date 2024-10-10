@@ -4,6 +4,7 @@ from zoneinfo import ZoneInfo
 import geocoder
 import requests
 from django.http import HttpResponse
+from django.template import loader
 
 
 def temp_here(request):
@@ -16,4 +17,8 @@ def temp_here(request):
     hour = now.hour
     meteo_data = requests.get(api_request).json()
     temp = meteo_data['hourly']['temperature_2m'][hour]
-    return HttpResponse(f"Here it's {temp} degrees C")
+    template = loader.get_template('index.html')
+    context = {
+        'temp': temp,
+    }
+    return HttpResponse(template.render(context, request))
