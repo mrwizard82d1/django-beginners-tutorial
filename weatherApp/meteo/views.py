@@ -3,9 +3,10 @@ from zoneinfo import ZoneInfo
 
 import geocoder
 import requests
+from django.http import HttpResponse
 
 
-def temp_here():
+def temp_here(request):
     """Return the temperature at the current location."""
     endpoint = 'https://api.open-meteo.com/v1/forecast'
     location = geocoder.ip('me').latlng
@@ -13,4 +14,5 @@ def temp_here():
     now = datetime.datetime.now(ZoneInfo('America/Chicago'))
     hour = now.hour
     meteo_data = requests.get(api_request).json()
-    return meteo_data['hourly']['temperature_2m'][hour]
+    temp = meteo_data['hourly']['temperature_2m'][hour]
+    return HttpResponse(f"Here it's {temp} degrees C")
