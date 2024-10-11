@@ -6,7 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-<h1>Temperature at your location:</h1>
+<h1>{{ city }}</h1>
 <h2>{{ temp }} &#8457;</h2>
+<p>
+    <a href="{% url 'temp_somewhere' %}">Check other places</a>
+    <a href=".">Home</a>
+</p>
 </body>
 </html>
